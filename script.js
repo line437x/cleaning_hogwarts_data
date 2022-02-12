@@ -34,7 +34,7 @@ function createStudents() {
     // ----- First name -----
     //Trim objects
     let originalName = object.fullname.trim();
-    let originalMiddleName = originalName.substring(originalName.indexOf(" "), originalName.lastIndexOf(" ")).trim();
+    // let originalMiddleName = originalName.substring(originalName.indexOf(" "), originalName.lastIndexOf(" ")).trim();
     //Find first name in string
     if (originalName.includes(" ")) {
       student.firstName = originalName.substring(0, 1).toUpperCase() + originalName.substring(1, originalName.indexOf(" "));
@@ -46,21 +46,28 @@ function createStudents() {
 
     // ----- Last name -----
     //Find last name in string
-    student.lastName = originalName.substring(originalName.lastIndexOf(" ") + 1);
-    //Change to upper- and lower case
-    student.lastName = student.lastName.substring(0, 1).toUpperCase() + student.lastName.substring(1).toLowerCase();
+    if (originalName.includes(" ")) {
+      student.lastName = originalName.substring(originalName.lastIndexOf(" ") + 1);
+      //Change to upper- and lower case
+      student.lastName = student.lastName.substring(0, 1).toUpperCase() + student.lastName.substring(1).toLowerCase();
+    }
 
     //----- Middle name -----
-    // student.middleName = originalName.substring(originalName.indexOf(" ") + 1, originalName.lastIndexOf(" "));
+    //Find the middle name (if any)
+    student.middleName = originalName.substring(originalName.indexOf(" ") + 1, originalName.lastIndexOf(" "));
+    student.middleName = student.middleName.substring(0, 1).toUpperCase() + student.middleName.substring(1).toLowerCase();
 
     //----- Nick name -----
-    //Trim objects
+    //Find the nick name (if any)
     if (originalName.includes('"')) {
+      student.middleName = undefined;
       student.nickName = originalName.substring(originalName.indexOf('"') + 1, originalName.lastIndexOf('"'));
     }
     // // ----- Image -----
     //Find the right image
-    student.image = "images/" + student.lastName + ".png";
+    let pic = new Image();
+    pic.scr = "images/" + student.lastName + ".png";
+    student.image = pic.scr;
 
     // ----- House -----
     //Trim objects
