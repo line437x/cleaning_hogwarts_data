@@ -14,10 +14,10 @@ async function getJson() {
 
   console.table(students);
 
-  prepareObjects();
+  createStudents();
 }
 
-function prepareObjects() {
+function createStudents() {
   students.forEach((object) => {
     // Define a template for the data objects
     const Student = {
@@ -29,8 +29,47 @@ function prepareObjects() {
       house: "",
     };
     // create a objects from a prototype
-    const studentInfo = Object.create(Student);
-  });
+    const student = Object.create(Student);
 
+    // ----- First name -----
+    //Trim objects
+    let originalName = object.fullname.trim();
+    let originalMiddleName = originalName.substring(originalName.indexOf(" "), originalName.lastIndexOf(" ")).trim();
+    //Find first name in string
+    if (originalName.includes(" ")) {
+      student.firstName = originalName.substring(0, 1).toUpperCase() + originalName.substring(1, originalName.indexOf(" "));
+    } else {
+      student.firstName = originalName.substring(0, 1).toUpperCase() + originalName.substring(1);
+    }
+    //Change to upper- and lower case
+    student.firstName = student.firstName.substring(0, 1).toUpperCase() + student.firstName.substring(1).toLowerCase();
+
+    // ----- Last name -----
+    //Find last name in string
+    student.lastName = originalName.substring(originalName.lastIndexOf(" ") + 1);
+    //Change to upper- and lower case
+    student.lastName = student.lastName.substring(0, 1).toUpperCase() + student.lastName.substring(1).toLowerCase();
+
+    //----- Middle name -----
+    // student.middleName = originalName.substring(originalName.indexOf(" ") + 1, originalName.lastIndexOf(" "));
+
+    //----- Nick name -----
+    //Trim objects
+    if (originalName.includes('"')) {
+      student.nickName = originalName.substring(originalName.indexOf('"') + 1, originalName.lastIndexOf('"'));
+    }
+    // // ----- Image -----
+    //Find the right image
+    student.image = "images/" + student.lastName + ".png";
+
+    // ----- House -----
+    //Trim objects
+    let originalHouse = object.house.trim();
+    //Find the name of the house
+    student.house = originalHouse;
+    //Change to upper- and lower case
+    student.house = student.house.substring(0, 1).toUpperCase() + student.house.substring(1).toLowerCase();
+    console.table(student);
+  });
   //   displayList();
 }
