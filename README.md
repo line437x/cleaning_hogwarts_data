@@ -23,7 +23,8 @@ You decide that it should at least contain:
 - Nick name (if any)
 - Image/photo filename
 - House
-- You design the prototype for the object, and then build code to read each JSON-object, and create a new Student object, and populate it with cleaned data from the JSON-object.
+
+You design the prototype for the object, and then build code to read each JSON-object, and create a new Student object, and populate it with cleaned data from the JSON-object.
 
 Store all the created student objects in a global array, and simply use console.table to show all the objects and their properties.
 
